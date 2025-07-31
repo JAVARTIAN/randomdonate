@@ -9,23 +9,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;600&display=swap" rel="stylesheet"/>
 
   <style>
-    /* ── GATING ───────────────────────────────────── */
+    /* GATING */
     #mainContent { display: none; }
-    #blockMessage { display: block; text-align: center; padding: 60px 20px; color: #aaa; font-style: italic; }
+    #blockMessage { display: block; text-align:center; padding:60px 20px; color:#aaa; font-style:italic; }
 
-    /* ── BASE STYLES ───────────────────────────────── */
+    /* BASE */
     body { margin:0; padding:0; background:#000; color:#fff; font-family:'Work Sans',sans-serif; }
     header, footer { text-align:center; padding:20px; color:#666; }
     .container { max-width:800px; margin:0 auto; padding:60px 20px; text-align:center; }
     h1 { font-size:2rem; font-weight:200; }
     .intro { font-style:italic; color:#aaa; margin:30px 0; font-size:1.2rem; }
 
-    /* ── CTA BUTTON + RIPPLE ──────────────────────── */
+    /* CTA BUTTON + RIPPLE */
     .cta-button {
       background:#fff; color:#000; padding:14px 28px; font-weight:600; border-radius:4px;
       display:inline-block; margin:30px auto; position:relative; overflow:hidden; cursor:pointer;
-      transition:background 0.3s;
-      text-decoration: none;
+      transition:background 0.3s; text-decoration:none;
     }
     .cta-button:hover { background:#ccc; }
     .cta-button::after {
@@ -35,29 +34,26 @@
     }
     @keyframes ripple { to { transform:translate(-50%,-50%) scale(4); opacity:0; } }
 
-    /* ── SCREEN GLOW ─────────────────────────────── */
-    @keyframes screenGlow { from { background:rgba(255,255,255,0.1);} to { background:transparent;} }
+    /* SCREEN GLOW */
+    @keyframes screenGlow { from{background:rgba(255,255,255,0.1);} to{background:transparent;} }
     body.glow-effect::before {
       content:""; position:fixed; inset:0; background:rgba(255,255,255,0.05);
       z-index:999; animation:screenGlow 0.4s ease-out; pointer-events:none;
     }
 
-    /* ── SECTIONS ─────────────────────────────────── */
+    /* SECTIONS */
     .how-it-works, .transparency, .faq, .ripples, .crypto-box, .report {
-      background:#111; text-align:left; padding:30px; border-radius:8px; margin-top:60px;
+      background:#111; padding:30px; border-radius:8px; margin-top:60px; text-align:left;
     }
     .how-it-works h2, .transparency h2, .faq h2, .ripples h2, .crypto-box h2, .report h2 {
       font-size:1.4rem; font-weight:400; margin-bottom:20px; color:#fff;
     }
     ul { list-style:disc; padding-left:20px; line-height:1.6; color:#ccc; }
-    .wallet {
-      background:#222; color:#0f0; padding:15px; border-radius:4px;
-      word-break:break-all; margin:10px auto; width:fit-content;
-    }
+    .wallet { background:#222; color:#0f0; padding:15px; border-radius:4px; word-break:break-all; margin:10px auto; width:fit-content; }
     img.qr { display:block; margin:10px auto; max-width:160px; }
 
-    /* CENTER TEXT IN REPORT & WALLET */
-    .report h2, .report p, .crypto-box, .crypto-box h2, .crypto-box p { text-align:center; }
+    /* CENTER text in report & wallet */
+    .report h2, .report p, .crypto-box h2, .crypto-box p { text-align:center; }
 
     /* RIPPLE TEXT ANIMATION */
     #rippleMessage.animate { animation:fadeSlide 0.8s ease-in-out; }
@@ -70,13 +66,13 @@
 </head>
 <body>
 
-  <!-- ▲ BLOCKED VIEW (no or invalid invite) ▲ -->
+  <!-- BLOCKED VIEW -->
   <div id="blockMessage">
     ⚑ This circle is closed.<br>
     But someone may invite you soon.
   </div>
 
-  <!-- ▼ GATED CONTENT ▼ -->
+  <!-- GATED CONTENT -->
   <div id="mainContent">
     <header>
       <img src="logo.png" alt="RandomDonate Logo" style="width:180px; margin-bottom:10px;">
@@ -87,7 +83,7 @@
     <audio id="donateSound" src="https://assets.mixkit.co/sfx/preview/mixkit-light-bulb-on-1465.mp3" preload="auto"></audio>
 
     <div class="container">
-      <!-- Intro & Manifesto -->
+      <!-- Intro -->
       <p class="intro">
         What if you gave... and never knew what it became?<br>
         What if generosity was not a transaction, but a disappearance?<br>
@@ -99,7 +95,7 @@
         A moment. A ripple. A disappearance.
       </div>
 
-      <!-- DONATE CTA (embedded anchor method) -->
+      <!-- **UPDATED: EMBED CTA** -->
       <p style="color:#bbb; font-size:0.95rem;">Easiest way to donate — instant & secure via Coinbase</p>
       <a
         id="checkout-button"
@@ -108,9 +104,9 @@
       >
         Donate Now
       </a>
-      <script src="https://commerce.coinbase.com/v1/checkout.js"></script> <!-- :contentReference[oaicite:0]{index=0} -->
+      <script src="https://commerce.coinbase.com/v1/checkout.js?version=201807" async></script> <!-- :contentReference[oaicite:1]{index=1} -->
 
-      <!-- HOW IT WORKS -->
+      <!-- How It Works -->
       <div class="how-it-works">
         <h2>How It Works</h2>
         <ul>
@@ -121,7 +117,7 @@
         </ul>
       </div>
 
-      <!-- TRANSPARENCY -->
+      <!-- Transparency -->
       <div class="transparency">
         <h2>Transparency & Trust</h2>
         <ul>
@@ -147,7 +143,7 @@
         </ul>
       </div>
 
-      <!-- RECENT RIPPLES -->
+      <!-- Recent Ripples -->
       <div class="ripples">
         <h2>Recent Ripples</h2>
         <ul>
@@ -157,7 +153,7 @@
         </ul>
       </div>
 
-      <!-- MANUAL WALLET DONATION -->
+      <!-- Manual Wallet -->
       <div class="crypto-box">
         <h2>Manual Wallet Donation (Advanced)</h2>
         <p>Copy or scan the QR below to donate manually:</p>
@@ -167,7 +163,7 @@
         <p style="color:#f66; font-size:0.95rem;"><strong>⚠ Important:</strong> Only send ERC-20 tokens.</p>
       </div>
 
-      <!-- LIVE DONATION LOG -->
+      <!-- Live Donation Log -->
       <div class="report">
         <div style="text-align:center; margin-bottom:20px;">
           <svg width="40" height="40" fill="#00f9ff" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -176,9 +172,8 @@
         </div>
         <h2>Live Donation Log</h2>
         <p>All donations are recorded publicly for full transparency.</p>
-        <iframe
-          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdemoEXAMPLEURL/pubhtml?widget=true&amp;headers=false"
-          style="width:100%;height:400px;border:none;border-radius:8px;background:#111;">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdemoEXAMPLEURL/pubhtml?widget=true&amp;headers=false"
+                style="width:100%;height:400px;border:none;border-radius:8px;background:#111;">
         </iframe>
       </div>
 
@@ -186,7 +181,6 @@
     </div>
   </div>
 
-  <!-- ── SCRIPTS ──────────────────────────────────── -->
   <script>
     let rippleCount = 0;
     function showThankYou() {
@@ -210,16 +204,14 @@
     }
 
     window.onload = () => {
-      const invite = new URLSearchParams(window.location.search).get('invite');
+      const invite = new URLSearchParams(location.search).get('invite');
       if (invite && ['blueflower','wave9','echo123'].includes(invite)) {
         document.getElementById('mainContent').style.display  = 'block';
         document.getElementById('blockMessage').style.display = 'none';
         document.getElementById('rippleMessage').textContent  = '💧 Welcome, giver.';
       }
-      // Bind thank-you animation on click
-      document
-        .getElementById('checkout-button')
-        .addEventListener('click', showThankYou);
+      // bind thank-you animation
+      document.getElementById('checkout-button').addEventListener('click', showThankYou);
     };
   </script>
 </body>
