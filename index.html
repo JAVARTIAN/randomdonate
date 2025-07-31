@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Coinbase checkout SDK (with your checkoutId) -->
+<script src="https://commerce.coinbase.com/v1/checkout.js?checkoutId=bf391046-989c-4b53-8438-0032a65dbfba" async></script>
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RandomDonate</title>
@@ -75,6 +78,13 @@
 </head>
 <body>
 
+  <!-- Donate CTA -->
+<p style="color:#bbb; font-size:0.95rem; margin-top:20px;">
+  Easiest way to donate — instant & secure via Coinbase
+</p>
+<div class="cta-button" id="checkout-button">Donate Now</div>
+
+
   <!-- Block message when no valid invite -->
   <div id="blockMessage" style="text-align:center; padding:60px 20px; color:#aaa; font-style:italic;">
     ⚑ This circle is closed.<br>
@@ -88,6 +98,7 @@
       <h1>Give. Let go. Walk away.</h1>
       <p id="rippleMessage" style="color:#aaa; margin-top:10px;"></p>
     </header>
+
 
     <audio id="donateSound" src="https://assets.mixkit.co/sfx/preview/mixkit-light-bulb-on-1465.mp3" preload="auto"></audio>
 
@@ -152,7 +163,9 @@
       <div class="crypto-box">
         <h2>Manual Wallet Donation (Advanced)</h2>
         <p>Copy or scan the QR code below to donate manually:</p>
-        <div class="wallet">0x17D21a83EFa8431FF2468FB1B3db2759163Aad44</div>
+
+        
+      <div class="wallet">0x17D21a83EFa8431FF2468FB1B3db2759163Aad44</div>
         <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?data=0x17D21a83EFa8431FF2468FB1B3db2759163Aad44&amp;size=160x160" alt="Crypto Wallet QR"/>
         <p style="color:#ccc;">Supports: ETH, USDT (ERC-20), USDC (ERC-20)</p>
         <p style="color:#f66; font-size:0.95rem;"><strong>⚠ Important:</strong> Only send ERC-20 tokens.</p>
@@ -196,7 +209,7 @@
         💙 Thank you for your donation.<br>
         You’ll receive a Ripple Token — a trace of this moment.<br>
         <span style="color:#aaa;font-style:italic;">
-          It carries no value for now. Only meaning. Keep it. Burn it. Forget it.
+          It carries no financial value yet. Only meaning. Keep it. Burn it. Forget it.
         </span>`;
       rippleEl.style.color = '#0ff';
       rippleEl.classList.add('animate');
@@ -220,5 +233,12 @@
       }
     };
   </script>
+
+  <script>
+  // After the SDK loads, this binds your ripple logic to the same button
+  document.getElementById('checkout-button')
+    .addEventListener('click', () => showThankYou());
+</script>
+
 </body>
 </html>
