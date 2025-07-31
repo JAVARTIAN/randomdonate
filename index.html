@@ -5,6 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RandomDonate</title>
   <meta name="description" content="RandomDonate is a platform where you can donate crypto anonymously to people in need. You’ll never know who you helped — and that’s the point."/>
+
+  <!-- ↓ START INVITE GATE SNIPPET ↓ -->
+<style>
+  /* hide main until valid invite; show block by default */
+  #mainContent { display: none !important; }
+  #blockMessage { display: block !important; }
+  /* when .invite-valid is on <html>, swap them */
+  .invite-valid #mainContent { display: block !important; }
+  .invite-valid #blockMessage { display: none !important; }
+</style>
+<script>
+  (function(){
+    const code = new URLSearchParams(location.search).get('invite');
+    if (['blueflower','wave9','echo123'].includes(code)) {
+      document.documentElement.classList.add('invite-valid');
+    }
+  })();
+</script>
+<!-- ↑ END INVITE GATE SNIPPET ↑ -->
+
   <link rel="manifest" href="manifest.json"/>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;600&display=swap" rel="stylesheet"/>
 
