@@ -66,6 +66,33 @@
 </head>
 <body>
 
+  <body>
+  <script>
+    (function(){
+      const valid = ['blueflower','wave9','echo123'];
+      const invite = new URLSearchParams(location.search).get('invite');
+      if (!invite || !valid.includes(invite)) {
+        // Replace entire page with the closed-circle message
+        document.body.innerHTML = `
+          <div style="text-align:center;padding:60px 20px;color:#aaa;font-style:italic;">
+            ⚑ This circle is closed.<br>
+            But someone may invite you soon.
+          </div>
+        `;
+      }
+    })();
+  </script>
+
+  <!-- ================================
+       Your existing HTML begins here
+       (unchanged from before)
+       ================================= -->
+  <header>…</header>
+  <div class="container">…</div>
+  <!-- etc. -->
+</body>
+
+
   <!-- BLOCKED VIEW -->
   <div id="blockMessage">
     ⚑ This circle is closed.<br>
