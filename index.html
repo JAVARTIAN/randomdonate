@@ -7,21 +7,23 @@
   <meta name="description" content="RandomDonate is a platform where you can donate crypto anonymously to people in need. You’ll never know who you helped — and that’s the point."/>
   <link rel="manifest" href="manifest.json"/>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;600&display=swap" rel="stylesheet"/>
+
   <!-- Coinbase Checkout SDK -->
   <script src="https://commerce.coinbase.com/v1/checkout.js?checkoutId=bf391046-989c-4b53-8438-0032a65dbfba" async></script>
+
   <style>
-    /* Gating */
+    /* ── GATING ───────────────────────────────────── */
     #mainContent { display: none; }
     #blockMessage { display: block; text-align: center; padding: 60px 20px; color: #aaa; font-style: italic; }
 
-    /* Base */
+    /* ── BASE STYLES ───────────────────────────────── */
     body { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Work Sans', sans-serif; }
     header, footer { text-align: center; padding: 20px; color: #666; }
     .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; text-align: center; }
     h1 { font-size: 2rem; font-weight: 200; }
     .intro { font-style: italic; color: #aaa; margin: 30px 0; font-size: 1.2rem; }
 
-    /* Donate Button & Ripple */
+    /* ── DONATE BUTTON + RIPPLE ───────────────────── */
     .cta-button {
       background: #fff; color: #000; padding: 14px 28px; font-weight: 600; border-radius: 4px;
       display: inline-block; margin: 30px auto; position: relative; overflow: hidden; cursor: pointer;
@@ -35,14 +37,14 @@
     }
     @keyframes ripple { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
 
-    /* Screen Glow */
+    /* ── SCREEN GLOW ──────────────────────────────── */
     @keyframes screenGlow { from { background: rgba(255,255,255,0.1); } to { background: transparent; } }
     body.glow-effect::before {
       content: ""; position: fixed; inset: 0; background: rgba(255,255,255,0.05);
       z-index: 999; animation: screenGlow 0.4s ease-out; pointer-events: none;
     }
 
-    /* Sections */
+    /* ── SECTIONS ─────────────────────────────────── */
     .how-it-works, .transparency, .faq, .ripples, .crypto-box, .report {
       background: #111; text-align: left; padding: 30px; border-radius: 8px; margin-top: 60px;
     }
@@ -50,25 +52,35 @@
       font-size: 1.4rem; font-weight: 400; margin-bottom: 20px; color: #fff;
     }
     ul { list-style: disc; padding-left: 20px; line-height: 1.6; color: #ccc; }
-    .wallet { background: #222; color: #0f0; padding: 15px; border-radius: 4px; word-break: break-all; margin: 10px auto; width: fit-content; }
+    .wallet {
+      background: #222; color: #0f0; padding: 15px; border-radius: 4px;
+      word-break: break-all; margin: 10px auto; width: fit-content;
+    }
     img.qr { display: block; margin: 10px auto; max-width: 160px; }
 
     /* Center text in report & crypto-box */
-    .report h2, .report p, .crypto-box, .crypto-box h2, .crypto-box p { text-align: center; }
+    .report h2, .report p, .crypto-box, .crypto-box h2, .crypto-box p {
+      text-align: center;
+    }
 
     /* Ripple text animation */
     #rippleMessage.animate { animation: fadeSlide 0.8s ease-in-out; }
-    @keyframes fadeSlide { 0% { opacity: 0; transform: translateY(-10px); } 50% { opacity: 1; transform: translateY(2px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeSlide {
+      0% { opacity: 0; transform: translateY(-10px); }
+      50% { opacity: 1; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
+
 <body>
-  <!-- Blocked view -->
+  <!-- ░░ Blocked View (no invite) ░░ -->
   <div id="blockMessage">
     ⚑ This circle is closed.<br>
     But someone may invite you soon.
   </div>
 
-  <!-- Main content (gated) -->
+  <!-- ░░ Main Content (gated) ░░ -->
   <div id="mainContent">
     <header>
       <img src="logo.png" alt="RandomDonate Logo" style="width:180px; margin-bottom:10px;">
@@ -79,7 +91,7 @@
     <audio id="donateSound" src="https://assets.mixkit.co/sfx/preview/mixkit-light-bulb-on-1465.mp3" preload="auto"></audio>
 
     <div class="container">
-      <!-- Intro -->
+      <!-- Intro & Manifesto -->
       <p class="intro">
         What if you gave... and never knew what it became?<br>
         What if generosity was not a transaction, but a disappearance?<br>
@@ -149,7 +161,7 @@
         <h2>Manual Wallet Donation (Advanced)</h2>
         <p>Copy or scan the QR code below to donate manually:</p>
         <div class="wallet">0x17D21a83EFa8431FF2468FB1B3db2759163Aad44</div>
-        <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?data=0x17D21a83EFa8431FF2468FB1B3db2759163Aad44&amp;size=160x160" alt="Crypto Wallet QR">
+        <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?data=0x17D21a83EFa8431FF2468FB1B3db2759163Aad44&amp;size=160x160" alt="Crypto Wallet QR"/>
         <p style="color:#ccc;">Supports: ETH, USDT (ERC-20), USDC (ERC-20)</p>
         <p style="color:#f66; font-size:0.95rem;"><strong>⚠ Important:</strong> Only send ERC-20 tokens.</p>
       </div>
@@ -163,7 +175,10 @@
         </div>
         <h2>Live Donation Log</h2>
         <p>All donations are recorded publicly for full transparency.</p>
-        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdemoEXAMPLEURL/pubhtml?widget=true&amp;headers=false" style="width:100%;height:400px;border:none;border-radius:8px;background:#111;"></iframe>
+        <iframe
+          src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdemoEXAMPLEURL/pubhtml?widget=true&amp;headers=false"
+          style="width:100%; height:400px; border:none; border-radius:8px; background:#111;">
+        </iframe>
       </div>
 
       <footer>© 2025 RandomDonate — Built with trust. Powered by kindness.</footer>
@@ -195,7 +210,7 @@
       CoinbaseCommerce.checkout('bf391046-989c-4b53-8438-0032a65dbfba');
     }
     window.onload = () => {
-      const invite = new URLSearchParams(window.location.search).get('invite');
+      const invite = new URLSearchParams(location.search).get('invite');
       if (invite && ['blueflower','wave9','echo123'].includes(invite)) {
         document.getElementById('mainContent').style.display = 'block';
         document.getElementById('blockMessage').style.display = 'none';
