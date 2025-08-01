@@ -1,62 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RandomDonate</title>
-  <meta name="description" content="RandomDonate is a platform where you can donate crypto anonymously to people in need. You’ll never know who you helped — and that’s the point."/>
+  <meta name="description" content="RandomDonate is a platform where you can donate crypto anonymously to people in need. You’ll never know who you helped — and that’s the point." />
 
-  <link rel="manifest" href="manifest.json"/>
-  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;600&display=swap" rel="stylesheet"/>
-  <!-- Coinbase SDK (optional, but not required for direct link) -->
+  <link rel="manifest" href="manifest.json" />
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;400;600&display=swap" rel="stylesheet" />
+  <!-- Coinbase SDK -->
   <script src="https://commerce.coinbase.com/v1/checkout.js" async></script>
 
   <style>
-    /* Gating styles */
+    /* GATING */
     #mainContent { display: none; }
     #blockMessage { display: block; text-align: center; padding: 60px 20px; color: #aaa; font-style: italic; }
 
-    /* Base styles */
-    body { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Work Sans', sans-serif; }
-    header, footer { text-align: center; padding: 20px; color: #666; }
-    .container { max-width: 800px; margin: 0 auto; padding: 60px 20px; text-align: center; }
-    h1 { font-size: 2rem; font-weight: 200; }
-    .intro { font-style: italic; color: #aaa; margin: 30px 0; font-size: 1.2rem; }
+    /* SPINNER */
+    #spinnerOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+    .spinner { border: 4px solid #333; border-top: 4px solid #0ff; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; }
+    @keyframes spin { 100% { transform: rotate(360deg); }}
 
-    /* Invite form */
-    #inviteForm input { padding: 10px; border-radius: 4px; border: none; width: 200px; }
-    #inviteForm button { padding: 10px 20px; margin-left: 10px; background: #fff; color: #000; border: none; border-radius: 4px; cursor: pointer; }
-    #inviteError { display: none; color: #f66; margin-top: 10px; }
+    /* BASE */
+    body { margin:0; padding:0; background:#000; color:#fff; font-family:'Work Sans',sans-serif; }
+    header, footer { text-align:center; padding:20px; color:#666; }
+    .container { max-width:800px; margin:0 auto; padding:60px 20px; text-align:center; }
+    h1 { font-size:2rem; font-weight:200; }
+    .intro { font-style:italic; color:#aaa; margin:30px 0; font-size:1.2rem; }
 
-    /* Donate button ripple */
-    .cta-button { background: #fff; color: #000; padding: 14px 28px; font-weight: 600; border-radius: 4px; cursor: pointer; position: relative; overflow: hidden; margin: 30px auto; display: inline-block; }
-    .cta-button:hover { background: #ccc; }
-    .cta-button::after { content: ''; position: absolute; border-radius: 50%; width: 100px; height: 100px; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); background: rgba(0,0,0,0.2); animation: ripple 0.6s linear; pointer-events: none; }
-    @keyframes ripple { to { transform: translate(-50%, -50%) scale(4); opacity: 0; } }
+    /* INVITE FORM */
+    #inviteForm input { padding:10px; border-radius:4px; border:none; width:200px; }
+    #inviteForm button { padding:10px 20px; margin-left:10px; background:#0ff; color:#000; border:none; border-radius:4px; cursor:pointer; }
+    #inviteError { display:none; color:#f66; margin-top:10px; font-style:italic; }
 
-    /* Glow effect */
+    /* DONATE BUTTON & RIPPLE */
+    .cta-button { background:#fff; color:#000; padding:14px 28px; font-weight:600; border-radius:4px; cursor:pointer; position:relative; overflow:hidden; margin:30px auto; display:inline-block; }
+    .cta-button:hover { background:#ccc; }
+    .cta-button::after { content:''; position:absolute; border-radius:50%; width:100px; height:100px; top:50%; left:50%; transform:translate(-50%, -50%) scale(0); background:rgba(0,0,0,0.2); animation:ripple 0.6s linear; pointer-events:none; }
+    @keyframes ripple { to { transform:translate(-50%, -50%) scale(4); opacity:0; }}
+
+    /* GLOW EFFECT */
     @keyframes screenGlow { from{background:rgba(255,255,255,0.1);} to{background:transparent;} }
-    body.glow-effect::before { content: ''; position: fixed; inset: 0; background: rgba(255,255,255,0.05); z-index: 999; animation: screenGlow 0.4s ease-out; pointer-events: none; }
+    body.glow-effect::before { content:''; position:fixed; inset:0; background:rgba(255,255,255,0.05); z-index:999; animation:screenGlow 0.4s ease-out; pointer-events:none; }
 
-    /* Sections */
-    .section { background: #111; padding: 30px; border-radius: 8px; margin-top: 60px; text-align: left; }
-    .section h2 { font-size: 1.4rem; font-weight: 400; color: #fff; margin-bottom: 20px; }
-    .section ul { list-style: disc; padding-left: 20px; line-height: 1.6; color: #ccc; }
-    .wallet { background: #222; color: #0f0; padding: 15px; border-radius: 4px; word-break: break-all; margin: 10px auto; width: fit-content; }
-    img.qr { display: block; margin: 10px auto; max-width: 160px; }
-    .report h2, .report p, .crypto-box h2, .crypto-box p { text-align: center; }
+    /* SECTIONS */
+    .section { background:#111; padding:30px; border-radius:8px; margin-top:60px; text-align:left; }
+    .section h2 { font-size:1.4rem; font-weight:400; color:#fff; margin-bottom:20px; }
+    .section ul { list-style:disc; padding-left:20px; line-height:1.6; color:#ccc; }
+    .wallet { background:#222; color:#0f0; padding:15px; border-radius:4px; word-break:break-all; margin:10px auto; width:fit-content; }
+    img.qr { display:block; margin:10px auto; max-width:160px; }
+    .report h2, .report p, .crypto-box h2, .crypto-box p { text-align:center; }
 
-    /* Ripple text */
-    #rippleMessage.animate { animation: fadeSlide 0.8s ease-in-out; }
+    /* RIPPLE TEXT */
+    #rippleMessage.animate { animation:fadeSlide 0.8s ease-in-out; }
     @keyframes fadeSlide { 0%{opacity:0;transform:translateY(-10px);}50%{opacity:1;transform:translateY(2px);}100%{opacity:1;transform:translateY(0);} }
+
+    /* Responsive */
+    @media(max-width:600px){.container{padding:40px 10px;} .cta-button{width:100%;}}
   </style>
 </head>
 <body>
+  <!-- Spinner Overlay -->
+  <div id="spinnerOverlay"><div class="spinner"></div></div>
 
-  <!-- BLOCKED VIEW with invite form -->
+  <!-- BLOCKED VIEW: Invite Form -->
   <div id="blockMessage">
     <form id="inviteForm">
-      <input id="inviteCodeInput" type="text" placeholder="Enter invite code" />
+      <input id="inviteCodeInput" type="text" placeholder="Enter invite code" aria-label="Invite Code" />
       <button id="inviteSubmit" type="button">Enter</button>
       <div id="inviteError">Invalid code. Request one here.</div>
     </form>
@@ -67,28 +77,32 @@
     <header>
       <img src="logo.png" alt="RandomDonate Logo" style="width:180px; margin-bottom:10px;" />
       <h1>Give. Let go. Walk away.</h1>
-      <p id="rippleMessage" style="color:#aaa; margin-top:10px;">&nbsp;</p>
+      <p id="rippleMessage" style="color:#aaa; margin-top:10px;" aria-live="polite">&nbsp;</p>
     </header>
 
     <audio id="donateSound" src="https://assets.mixkit.co/sfx/preview/mixkit-light-bulb-on-1465.mp3" preload="auto"></audio>
 
     <div class="container">
-      <p class="intro">What if you gave... and never knew what it became?</p>
+      <!-- Intro -->
+      <p class="intro">What if you gave... and never knew what it became?<br>What if generosity was not a transaction, but a disappearance?<br>What if helping someone didn't require their face, name, or story?</p>
+
+      <!-- Token Preview -->
+      <div class="section token-preview" style="text-align:center;">
+        <img src="badge.png" alt="Ripple Badge Preview" style="width:120px;height:120px; margin-bottom:10px;" />
+        <p style="color:#aaa; font-size:0.9rem;">Every donor receives this Ripple Badge in their wallet.</p>
+      </div>
 
       <!-- Donate CTA -->
       <p style="color:#bbb; font-size:0.95rem;">Easiest way to donate — instant & secure via Coinbase</p>
-      <button class="cta-button" onclick="
-        window.open('https://commerce.coinbase.com/checkout/2a1dcfab-b7b8-4568-b4ce-c0d0ff1db2a2','_blank');
-        showThankYou();
-      ">Donate Now</button>
+      <button class="cta-button" id="checkoutButton">Donate Now</button>
 
       <!-- Recent Ripples -->
       <div class="section ripples">
         <h2>Recent Ripples</h2>
         <ul>
-          <li>💧 Someone in Lagos just received $5 for food.</li>
-          <li>💧 An artist in Beirut received $12 for rent.</li>
-          <li>💧 A single mom in Manila received $8 for diapers.</li>
+          <li><time>Just now</time>: Someone in Lagos received $5 for food.</li>
+          <li><time>2m ago</time>: An artist in Beirut got $12 for rent.</li>
+          <li><time>5m ago</time>: A mom in Manila received $8 for diapers.</li>
         </ul>
       </div>
 
@@ -103,13 +117,60 @@
         </ul>
       </div>
 
-      <!-- Transparency, FAQ, crypto-box, report sections remain unchanged -->
-    </div>
+      <!-- Transparency & Trust -->
+      <div class="section transparency">
+        <h2>Transparency & Trust</h2>
+        <ul>
+          <li>All donations are logged and visible in a public report.</li>
+          <li>We share anonymous proof of impact — screenshots, messages, outcomes.</li>
+          <li>100% of funds go directly to recipients. We take nothing.</li>
+        </ul>
+      </div>
 
-    <footer>© 2025 RandomDonate — Built with trust. Powered by kindness.</footer>
+      <!-- FAQ -->
+      <div class="section faq">
+        <h2>Frequently Asked Questions</h2>
+        <ul>
+          <li><strong>How do you choose who gets the money?</strong><br>We review requests and prioritize urgent needs based on honesty & vulnerability.</li>
+          <li><strong>Can I request help?</strong><br>Yes. An anonymous request form is coming soon.</li>
+          <li><strong>Do you take a cut?</strong><br>No. All funds go directly to those in need.</li>
+        </ul>
+      </div>
+
+      <!-- Manual Wallet Donation -->
+      <div class="section crypto-box">
+        <h2>Manual Wallet Donation (Advanced)</h2>
+        <p>Copy or scan the QR code below:</p>
+        <div class="wallet">0x17D21a83EFa8431FF2468FB1B3db2759163Aad44</div>
+        <img class="qr" src="https://api.qrserver.com/v1/create-qr-code/?data=0x17D21a83EFa8431FF2468FB1B3db2759163Aad44&amp;size=160x160" alt="Crypto Wallet QR" />
+        <p style="color:#ccc;">Supports: ETH, USDT, USDC (ERC-20)</p>
+        <p style="color:#f66; font-size:0.9rem;"><strong>⚠ Important:</strong> Only send ERC-20 tokens.</p>
+      </div>
+
+      <!-- Live Donation Log -->
+      <div class="section report">
+        <h2>Live Donation Log</h2>
+        <p>All donations are recorded publicly for full transparency.</p>
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQdemoEXAMPLEURL/pubhtml?widget=true&amp;headers=false" style="width:100%;height:400px;border:none;border-radius:8px;background:#111;" title="Live Donation Log"></iframe>
+      </div>
+
+      <!-- GitHub & About -->
+      <footer>
+        <p><a href="https://github.com/yourrepo/randomdonate" target="_blank" rel="noopener">View code on GitHub</a> | <button id="aboutLink" style="background:none;border:none;color:#0ff;cursor:pointer;">About Us</button></p>
+        <p>© 2025 RandomDonate — Built with trust. Powered by kindness.</p>
+      </footer>
+    </div>
   </div>
 
+  <!-- About Modal -->
+  <dialog id="aboutModal" style="background:#111;color:#fff;border:none;border-radius:8px;padding:20px;">
+    <h2>About RandomDonate</h2>
+    <p>RandomDonate is a web3 experiment in anonymous generosity. We prioritize privacy and impact—100% of donations go directly to people in need.</p>
+    <button id="aboutClose" style="padding:8px 16px;border:none;border-radius:4px;cursor:pointer;">Close</button>
+  </dialog>
+
   <script>
+    // Invite gating
     const validCodes = ['blueflower','wave9','echo123'];
     document.getElementById('inviteSubmit').addEventListener('click', () => {
       const code = document.getElementById('inviteCodeInput').value.trim();
@@ -122,7 +183,16 @@
       }
     });
 
+    // Checkout and feedback
     let rippleCount = 0;
+    const checkoutId = '2a1dcfab-b7b8-4568-b4ce-c0d0ff1db2a2';
+    const checkoutButton = document.getElementById('checkoutButton');
+    checkoutButton.addEventListener('click', () => {
+      document.getElementById('spinnerOverlay').style.display = 'flex';
+      window.open(`https://commerce.coinbase.com/checkout/${checkoutId}`, '_blank');
+      showThankYou();
+    });
+
     function showThankYou() {
       document.getElementById('donateSound').play();
       document.body.classList.add('glow-effect');
@@ -133,8 +203,16 @@
       setTimeout(() => {
         el.textContent = `💧 Total donations: ${++rippleCount}`;
         el.classList.remove('animate');
+        document.getElementById('spinnerOverlay').style.display = 'none';
       }, 3000);
     }
+
+    // About modal
+    const aboutLink = document.getElementById('aboutLink');
+    const aboutModal = document.getElementById('aboutModal');
+    const aboutClose = document.getElementById('aboutClose');
+    aboutLink.addEventListener('click', () => aboutModal.showModal());
+    aboutClose.addEventListener('click', () => aboutModal.close());
   </script>
 </body>
 </html>
