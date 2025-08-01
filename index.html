@@ -87,7 +87,11 @@
 <body>
   <!-- BLOCKED VIEW -->
   <div id="blockMessage">
-    ⚑ This circle is closed.<br>But someone may invite you soon.
+    <form id="inviteForm" style="text-align:center; padding:60px 20px;">
+      <input type="text" id="inviteCodeInput" placeholder="Enter invite code" style="padding:10px; border-radius:4px; border:none; width:200px;" />
+      <button type="button" id="inviteSubmit" style="padding:10px 20px; margin-left:10px; background:#fff; color:#000; border:none; border-radius:4px; cursor:pointer;">Enter</button>
+      <p id="inviteError" style="display:none; color:#f66; margin-top:10px; font-style:italic;">Invalid code. Request one here.</p>
+    </form>
   </div>
 
   <!-- GATED CONTENT -->
